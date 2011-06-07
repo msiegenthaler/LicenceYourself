@@ -1,5 +1,8 @@
 package licenseyourself
 
+import org.hibernate.envers.Audited;
+
+@Audited
 class Department {
 	def userService
 	

@@ -1,7 +1,9 @@
 package licenseyourself
 
-class Product {
+import org.hibernate.envers.Audited;
 
+@Audited
+class Product {
 	String name
 	String description
 	URL homepage

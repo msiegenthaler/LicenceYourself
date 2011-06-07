@@ -45,10 +45,10 @@
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="licenseUsage.checkoutDate.label" default="Checkout Date" /></td>
                             
-                            <td valign="top" class="value"><g:formatDate date="${licenseUsageInstance?.checkoutDate}" /></td>
-                            
+                            <td valign="top" class="value">
+                            	<g:formatDate date="${licenseUsageInstance?.checkoutDate}" />
+                            </td>
                         </tr>
-                    
                     </tbody>
                 </table>
             </div>
