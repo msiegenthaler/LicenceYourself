@@ -20,7 +20,8 @@ class LicenseUsage {
 	}
 	
 	def String toString() {
-		"$product-$userid"
+		def un = user.name
+		"$product ($un)"
 	}
 
 	static constraints = {
