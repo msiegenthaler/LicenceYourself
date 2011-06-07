@@ -64,13 +64,12 @@
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: productInstance, field: 'licenses', 'errors')}">
                                     
-<ul>
-<g:each in="${productInstance?.licenses?}" var="l">
-    <li><g:link controller="license" action="show" id="${l.id}">${l?.encodeAsHTML()}</g:link></li>
-</g:each>
-</ul>
-<g:link controller="license" action="create" params="['product.id': productInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'license.label', default: 'License')])}</g:link>
-
+								<ul>
+								<g:each in="${productInstance?.licenses?}" var="l">
+								    <li><g:link controller="license" action="show" id="${l.id}">${l?.encodeAsHTML()}</g:link></li>
+								</g:each>
+								</ul>
+								<g:link controller="license" action="create" params="['product.id': productInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'license.label', default: 'License')])}</g:link>
                                 </td>
                             </tr>
                         
