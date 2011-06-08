@@ -1,7 +1,8 @@
 package licenseyourself
 
-class LicenseUsageController {
+import javax.sql.rowset.spi.TransactionalWriter;
 
+class LicenseUsageController {
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index = {
@@ -22,7 +23,10 @@ class LicenseUsageController {
 
     def save = {
         def licenseUsageInstance = new LicenseUsage(params)
-        if (licenseUsageInstance.save(flush: true)) {
+		def success = LicenseUsage.withTransaction {
+			licenseUsageInstance.save(flush: true)
+		}
+        if (success) {
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'licenseUsage.label', default: 'LicenseUsage'), licenseUsageInstance.id])}"
             redirect(action: "show", id: licenseUsageInstance.id)
         }

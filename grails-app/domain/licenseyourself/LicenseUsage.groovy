@@ -1,5 +1,7 @@
 package licenseyourself
 
+import net.lucasward.grails.plugin.FindAtRevisionQuery;
+
 import org.hibernate.envers.Audited;
 
 @Audited
@@ -7,9 +9,11 @@ class LicenseUsage {
 	def userService
 
 	String userid
-	Date checkoutDate
-
-
+	
+	def getCheckoutDate() {
+		revisionEntity?.revisionDate
+	}
+	
 	def getUser() {
 		userService.findByUserId(userid)
 	}
