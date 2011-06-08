@@ -43,13 +43,6 @@
                         </tr>
                         
                         <tr class="prop">
-                            <td valign="top" class="name"><g:message code="license.comment.label" default="Comment" /></td>
-                            
-                            <td valign="top" class="value">${fieldValue(bean: licenseInstance, field: "comment")}</td>
-                            
-                        </tr>
-                        
-                        <tr class="prop">
                             <td valign="top" class="name"><g:message code="license.allowedConcurrent.label" default="Allowed Concurrent" /></td>
                             
                             <td valign="top" class="value">${fieldValue(bean: licenseInstance, field: "allowedConcurrent")}</td>
@@ -59,8 +52,19 @@
                             <td valign="top" class="name"><g:message code="license.allowedInstallations.label" default="Allowed Installations" /></td>
                             
                             <td valign="top" class="value">${fieldValue(bean: licenseInstance, field: "allowedInstallations")}</td>
+						</tr>
+						                            
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="license.subscription.label" default="Subscription" /></td>
                             
-                    
+                            <td valign="top" class="value"><g:formatBoolean boolean="${licenseInstance?.subscription}" /></td>
+                        </tr>
+
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="license.comment.label" default="Comment" /></td>
+                            
+                            <td valign="top" class="value">${fieldValue(bean: licenseInstance, field: "comment")}</td>
+                        </tr>                    
                     
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="license.licenseKey.label" default="License Key" /></td>

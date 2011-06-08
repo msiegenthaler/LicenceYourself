@@ -45,16 +45,6 @@
                                 </td>
                             </tr>
                         
-                                                
-                            <tr class="prop">
-                                <td valign="top" class="name">
-                                    <label for="comment"><g:message code="license.comment.label" default="Comment" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: licenseInstance, field: 'comment', 'errors')}">
-                                    <g:textField name="comment" value="${licenseInstance?.comment}" />
-                                </td>
-                            </tr>
-                        
                             <tr class="prop">
                                 <td valign="top" class="name">
                                     <label for="allowedConcurrent"><g:message code="license.allowedConcurrent.label" default="Allowed Concurrent" /></label>
@@ -70,6 +60,24 @@
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: licenseInstance, field: 'allowedInstallations', 'errors')}">
                                     <g:textField name="allowedInstallations" value="${fieldValue(bean: licenseInstance, field: 'allowedInstallations')}" />
+                                </td>
+                            </tr>
+
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="subscription"><g:message code="license.subscription.label" default="Subscription" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: licenseInstance, field: 'subscription', 'errors')}">
+                                    <g:checkBox name="subscription" value="${licenseInstance?.subscription}" />
+                                </td>
+                            </tr>
+                            
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                    <label for="comment"><g:message code="license.comment.label" default="Comment" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: licenseInstance, field: 'comment', 'errors')}">
+                                    <g:textField name="comment" value="${licenseInstance?.comment}" />
                                 </td>
                             </tr>
                         

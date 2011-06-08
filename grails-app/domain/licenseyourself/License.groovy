@@ -7,13 +7,16 @@ class License {
 	def userService
 
 	String comment
+	boolean subscription
 	
-	int allowedInstallations
-	int allowedConcurrent
+	Integer allowedInstallations
+	Integer allowedConcurrent
 	
 	String licenseKey
 	byte[] licenseFile
-	
+
+	//TODO arbitrary documents
+		
 
 	static belongsTo = [product:Product, owner:Department]
 	static hasMany = [users:LicenseUsage]
@@ -24,7 +27,7 @@ class License {
 	
 	static constraints = {
 		allowedConcurrent(min: 0)
-		allowedInstallations(min: 0)
+		allowedInstallations(min: 0, nullable: true)
 		comment(nullable: true)
 		licenseKey(nullable: true)
 		licenseFile(nullable: true)
