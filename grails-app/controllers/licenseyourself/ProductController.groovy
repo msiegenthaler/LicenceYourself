@@ -1,7 +1,7 @@
 package licenseyourself
 
 class ProductController {
-
+	static transactional = ["save", "update", "delete"]
 	static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
 	def index = {
@@ -31,7 +31,7 @@ class ProductController {
 	def save = {
 		def productInstance = new Product(params)
 		if (productInstance.save(flush: true)) {
-			flash.message = "${message(code: 'default.created.message', args: [message(code: 'product.label', default: 'Product'), productInstance.id])}"
+			flash.message = "${g.message(code: 'default.created.message', args: [g.message(code: 'product.label', default: 'Product'), productInstance.id])}"
 			redirect(action: "show", id: productInstance.id)
 		}
 		else {
@@ -42,7 +42,7 @@ class ProductController {
 	def show = {
 		def productInstance = Product.get(params.id)
 		if (!productInstance) {
-			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'product.label', default: 'Product'), params.id])}"
+			flash.message = "${g.message(code: 'default.not.found.message', args: [g.message(code: 'product.label', default: 'Product'), params.id])}"
 			redirect(action: "list")
 		}
 		else {
@@ -53,7 +53,7 @@ class ProductController {
 	def edit = {
 		def productInstance = Product.get(params.id)
 		if (!productInstance) {
-			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'product.label', default: 'Product'), params.id])}"
+			flash.message = "${g.message(code: 'default.not.found.message', args: [g.message(code: 'product.label', default: 'Product'), params.id])}"
 			redirect(action: "list")
 		}
 		else {
@@ -69,7 +69,7 @@ class ProductController {
 				if (productInstance.version > version) {
 
 					productInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [
-						message(code: 'product.label', default: 'Product')]
+						g.message(code: 'product.label', default: 'Product')]
 					as Object[], "Another user has updated this Product while you were editing")
 					render(view: "edit", model: [productInstance: productInstance])
 					return
@@ -77,7 +77,7 @@ class ProductController {
 			}
 			productInstance.properties = params
 			if (!productInstance.hasErrors() && productInstance.save(flush: true)) {
-				flash.message = "${message(code: 'default.updated.message', args: [message(code: 'product.label', default: 'Product'), productInstance.id])}"
+				flash.message = "${g.message(code: 'default.updated.message', args: [g.message(code: 'product.label', default: 'Product'), productInstance.id])}"
 				redirect(action: "show", id: productInstance.id)
 			}
 			else {
@@ -85,7 +85,7 @@ class ProductController {
 			}
 		}
 		else {
-			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'product.label', default: 'Product'), params.id])}"
+			flash.message = "${g.message(code: 'default.not.found.message', args: [g.message(code: 'product.label', default: 'Product'), params.id])}"
 			redirect(action: "list")
 		}
 	}
@@ -95,16 +95,16 @@ class ProductController {
 		if (productInstance) {
 			try {
 				productInstance.delete(flush: true)
-				flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'product.label', default: 'Product'), params.id])}"
+				flash.message = "${g.message(code: 'default.deleted.message', args: [g.message(code: 'product.label', default: 'Product'), params.id])}"
 				redirect(action: "list")
 			}
 			catch (org.springframework.dao.DataIntegrityViolationException e) {
-				flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'product.label', default: 'Product'), params.id])}"
+				flash.message = "${g.message(code: 'default.not.deleted.message', args: [g.message(code: 'product.label', default: 'Product'), params.id])}"
 				redirect(action: "show", id: params.id)
 			}
 		}
 		else {
-			flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'product.label', default: 'Product'), params.id])}"
+			flash.message = "${g.message(code: 'default.not.found.message', args: [g.message(code: 'product.label', default: 'Product'), params.id])}"
 			redirect(action: "list")
 		}
 	}

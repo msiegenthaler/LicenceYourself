@@ -3,6 +3,7 @@ package licenseyourself
 import javax.sql.rowset.spi.TransactionalWriter;
 
 class LicenseUsageController {
+	static transactional = ["save", "update", "delete"]
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
     def index = {
@@ -24,7 +25,7 @@ class LicenseUsageController {
     def save = {
         def licenseUsageInstance = new LicenseUsage(params)
         if (licenseUsageInstance.save(flush: true)) {
-            flash.message = "${message(code: 'default.created.message', args: [message(code: 'licenseUsage.label', default: 'LicenseUsage'), licenseUsageInstance.id])}"
+            flash.message = "${g.message(code: 'default.created.message', args: [g.message(code: 'licenseUsage.label', default: 'LicenseUsage'), licenseUsageInstance.id])}"
             redirect(action: "show", id: licenseUsageInstance.id)
         }
         else {
@@ -35,7 +36,7 @@ class LicenseUsageController {
     def show = {
         def licenseUsageInstance = LicenseUsage.get(params.id)
         if (!licenseUsageInstance) {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'licenseUsage.label', default: 'LicenseUsage'), params.id])}"
+            flash.message = "${g.message(code: 'default.not.found.message', args: [g.message(code: 'licenseUsage.label', default: 'LicenseUsage'), params.id])}"
             redirect(action: "list")
         }
         else {
@@ -46,7 +47,7 @@ class LicenseUsageController {
     def edit = {
         def licenseUsageInstance = LicenseUsage.get(params.id)
         if (!licenseUsageInstance) {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'licenseUsage.label', default: 'LicenseUsage'), params.id])}"
+            flash.message = "${g.message(code: 'default.not.found.message', args: [g.message(code: 'licenseUsage.label', default: 'LicenseUsage'), params.id])}"
             redirect(action: "list")
         }
         else {
@@ -61,14 +62,14 @@ class LicenseUsageController {
                 def version = params.version.toLong()
                 if (licenseUsageInstance.version > version) {
                     
-                    licenseUsageInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [message(code: 'licenseUsage.label', default: 'LicenseUsage')] as Object[], "Another user has updated this LicenseUsage while you were editing")
+                    licenseUsageInstance.errors.rejectValue("version", "default.optimistic.locking.failure", [g.message(code: 'licenseUsage.label', default: 'LicenseUsage')] as Object[], "Another user has updated this LicenseUsage while you were editing")
                     render(view: "edit", model: [licenseUsageInstance: licenseUsageInstance])
                     return
                 }
             }
             licenseUsageInstance.properties = params
             if (!licenseUsageInstance.hasErrors() && licenseUsageInstance.save(flush: true)) {
-                flash.message = "${message(code: 'default.updated.message', args: [message(code: 'licenseUsage.label', default: 'LicenseUsage'), licenseUsageInstance.id])}"
+                flash.message = "${g.message(code: 'default.updated.message', args: [g.message(code: 'licenseUsage.label', default: 'LicenseUsage'), licenseUsageInstance.id])}"
                 redirect(action: "show", id: licenseUsageInstance.id)
             }
             else {
@@ -76,7 +77,7 @@ class LicenseUsageController {
             }
         }
         else {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'licenseUsage.label', default: 'LicenseUsage'), params.id])}"
+            flash.message = "${g.message(code: 'default.not.found.message', args: [g.message(code: 'licenseUsage.label', default: 'LicenseUsage'), params.id])}"
             redirect(action: "list")
         }
     }
@@ -86,16 +87,16 @@ class LicenseUsageController {
         if (licenseUsageInstance) {
             try {
                 licenseUsageInstance.delete(flush: true)
-                flash.message = "${message(code: 'default.deleted.message', args: [message(code: 'licenseUsage.label', default: 'LicenseUsage'), params.id])}"
+                flash.message = "${g.message(code: 'default.deleted.message', args: [g.message(code: 'licenseUsage.label', default: 'LicenseUsage'), params.id])}"
                 redirect(action: "list")
             }
             catch (org.springframework.dao.DataIntegrityViolationException e) {
-                flash.message = "${message(code: 'default.not.deleted.message', args: [message(code: 'licenseUsage.label', default: 'LicenseUsage'), params.id])}"
+                flash.message = "${g.message(code: 'default.not.deleted.message', args: [g.message(code: 'licenseUsage.label', default: 'LicenseUsage'), params.id])}"
                 redirect(action: "show", id: params.id)
             }
         }
         else {
-            flash.message = "${message(code: 'default.not.found.message', args: [message(code: 'licenseUsage.label', default: 'LicenseUsage'), params.id])}"
+            flash.message = "${g.message(code: 'default.not.found.message', args: [g.message(code: 'licenseUsage.label', default: 'LicenseUsage'), params.id])}"
             redirect(action: "list")
         }
     }
