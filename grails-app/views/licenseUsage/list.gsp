@@ -22,11 +22,9 @@
                     <thead>
                         <tr>
                             <g:sortableColumn property="license" title="${message(code: 'licenseUsage.product.label', default: 'Product')}" />
-                            
                             <g:sortableColumn property="userid" title="${message(code: 'licenseUsage.userid.label', default: 'User')}" />
-                        
                             <th><g:message code="licenseUsage.licenseOwner.label" default="License Owner" /></th>
-                        
+                            <th><g:message code="licenseUsage.checkoutDate.label" default="Checkout Date" /></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -42,7 +40,12 @@
                            		${fieldValue(bean: licenseUsageInstance, field: "user.name")}
                             </td>
                         
-                            <td>${fieldValue(bean: licenseUsageInstance, field: "license.owner.name")}</td>
+                            <td>
+                            	${fieldValue(bean: licenseUsageInstance, field: "license.owner.name")}
+                            </td>
+                            <td>
+								<g:formatDate date="${licenseUsageInstance?.checkoutDate}" />
+                            </td>
                         
                         </tr>
                     </g:each>

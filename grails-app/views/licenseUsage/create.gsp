@@ -39,15 +39,6 @@
                         
                             <tr class="prop">
                                 <td valign="top" class="name">
-                                    <label for="checkoutDate"><g:message code="licenseUsage.checkoutDate.label" default="Checkout Date" /></label>
-                                </td>
-                                <td valign="top" class="value ${hasErrors(bean: licenseUsageInstance, field: 'checkoutDate', 'errors')}">
-                                    <g:datePicker name="checkoutDate" precision="day" value="${licenseUsageInstance?.checkoutDate}"  />
-                                </td>
-                            </tr>
-                        
-                            <tr class="prop">
-                                <td valign="top" class="name">
                                     <label for="license"><g:message code="licenseUsage.license.label" default="License" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: licenseUsageInstance, field: 'license', 'errors')}">
