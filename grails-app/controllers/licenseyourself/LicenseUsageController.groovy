@@ -23,10 +23,7 @@ class LicenseUsageController {
 
     def save = {
         def licenseUsageInstance = new LicenseUsage(params)
-		def success = LicenseUsage.withTransaction {
-			licenseUsageInstance.save(flush: true)
-		}
-        if (success) {
+        if (licenseUsageInstance.save(flush: true)) {
             flash.message = "${message(code: 'default.created.message', args: [message(code: 'licenseUsage.label', default: 'LicenseUsage'), licenseUsageInstance.id])}"
             redirect(action: "show", id: licenseUsageInstance.id)
         }
