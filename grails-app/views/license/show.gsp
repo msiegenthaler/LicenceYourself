@@ -70,12 +70,10 @@
                             <td valign="top" class="name"><g:message code="license.licenseKey.label" default="License Key" /></td>
                             
                             <td valign="top" class="value">${fieldValue(bean: licenseInstance, field: "licenseKey")}</td>
-                            
                         </tr>
                     
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="license.licenseFile.label" default="License File" /></td>
-                            
                         </tr>
                     
                         <tr class="prop">
@@ -88,7 +86,18 @@
                                 </g:each>
                                 </ul>
                             </td>
+                        </tr>
+                        
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="license.attachments.label" default="Attachments" /></td>
                             
+                            <td valign="top" style="text-align: left;" class="value">
+                                <ul>
+                                <g:each in="${licenseInstance.attachments}" var="attachment">
+                                    <li><g:link controller="licenseAttachment" action="show" id="${attachment.id}">${attachment?.name?.encodeAsHTML()}</g:link></li>
+                                </g:each>
+                                </ul>
+                            </td>
                         </tr>
                     
                     </tbody>

@@ -15,11 +15,8 @@ class License {
 	String licenseKey
 	byte[] licenseFile
 
-	//TODO arbitrary documents
-		
-
 	static belongsTo = [product:Product, owner:Department]
-	static hasMany = [users:LicenseUsage]
+	static hasMany = [users:LicenseUsage, attachments:LicenseAttachment]
 	
 	def String toString() { 
 		"$product.name-$owner.name-$id"	

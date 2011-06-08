@@ -1,5 +1,6 @@
 import licenseyourself.Department;
 import licenseyourself.License;
+import licenseyourself.LicenseAttachment;
 import licenseyourself.LicenseUsage;
 import licenseyourself.Product;
 
@@ -30,6 +31,9 @@ class BootStrap {
 			xs_lic_ms = new LicenseUsage(license: xs_lic, userid: 'ms1', checkoutDate: new Date()).save()
 			def xs_lic_as = new LicenseUsage(license: xs_lic, userid: 'as', checkoutDate: new Date()).save()
 			def xs_lic_cs = new LicenseUsage(license: xs_lic, userid: 'cs', checkoutDate: new Date()).save()
+			
+			def xs_lic_a = new LicenseAttachment(license: xs_lic, name: 'Attachment A', content: [1,2,3,4,5,6]).save()
+			def xs_lic_b = new LicenseAttachment(license: xs_lic, name: 'Attachment B', content: [1,2,3,4,5,6]).save()
 		}
 		
 		Department.withTransaction {
