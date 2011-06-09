@@ -3,6 +3,7 @@ import licenseyourself.License;
 import licenseyourself.LicenseAttachment;
 import licenseyourself.LicenseUsage;
 import licenseyourself.Product;
+import licenseyourself.UploadedFile;
 
 class BootStrap {
 
@@ -18,7 +19,8 @@ class BootStrap {
 					description: 'Rich-Application Framework (Java)',
 					homepage: 'http://www.ulcjava.com'
 					).save()
-			def ulc_lic = new License(owner: ste, subscription: true, allowedInstallations: 20, allowedConcurrent: 20, product: ulc).save()
+			def ulc_lic_file = new UploadedFile(name: 'ulc.txt', mimeType: 'text/plain', content: 'ULC Key: 12313141A21BFE'.getBytes())
+			def ulc_lic = new License(owner: ste, subscription: true, allowedInstallations: 20, allowedConcurrent: 20, licenseFile: ulc_lic_file, product: ulc).save()
 			def ulc_lic_ms = new LicenseUsage(license: ulc_lic, userid: 'ms', checkoutDate: new Date()).save()
 			def ulc_lic_fh = new LicenseUsage(license: ulc_lic, userid: 'fh', checkoutDate: new Date()).save()
 			def ulc_lic_sb = new LicenseUsage(license: ulc_lic, userid: 'sb', checkoutDate: new Date()).save()

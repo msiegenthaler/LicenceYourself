@@ -99,7 +99,8 @@
                                   <label for="licenseFile"><g:message code="license.licenseFile.label" default="License File" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: licenseInstance, field: 'licenseFile', 'errors')}">
-                                    <input type="file" id="licenseFile" name="licenseFile" />
+                                    <input type="file" id="file" name="file" />
+                                    <g:checkBox name="removeFile"></g:checkBox> <g:message code="license.licenseFile.remove" default="Remove" />
                                 </td>
                             </tr>
                                                 
@@ -108,14 +109,12 @@
                                   <label for="users"><g:message code="license.users.label" default="Users" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: licenseInstance, field: 'users', 'errors')}">
-                                    
-<ul>
-<g:each in="${licenseInstance?.users?}" var="u">
-    <li><g:link controller="licenseUsage" action="show" id="${u.id}">${u?.encodeAsHTML()}</g:link></li>
-</g:each>
-</ul>
-<g:link controller="licenseUsage" action="create" params="['license.id': licenseInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'licenseUsage.label', default: 'LicenseUsage')])}</g:link>
-
+									<ul>
+									<g:each in="${licenseInstance?.users?}" var="u">
+									    <li><g:link controller="licenseUsage" action="show" id="${u.id}">${u?.encodeAsHTML()}</g:link></li>
+									</g:each>
+									</ul>
+									<g:link controller="licenseUsage" action="create" params="['license.id': licenseInstance?.id]">${message(code: 'default.add.label', args: [message(code: 'licenseUsage.label', default: 'LicenseUsage')])}</g:link>
                                 </td>
                             </tr>
                         

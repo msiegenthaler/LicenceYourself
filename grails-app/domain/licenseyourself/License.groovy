@@ -13,9 +13,10 @@ class License {
 	Integer allowedConcurrent
 	
 	String licenseKey
-	byte[] licenseFile
+	UploadedFile licenseFile
 
 	static belongsTo = [product:Product, owner:Department]
+	static hasMany = [users:LicenseUsage]
 	static hasMany = [users:LicenseUsage, attachments:LicenseAttachment]
 	
 	def String toString() { 
@@ -29,4 +30,5 @@ class License {
 		licenseKey(nullable: true)
 		licenseFile(nullable: true)
 	}
+	static embedded = ['licenseFile']
 }
