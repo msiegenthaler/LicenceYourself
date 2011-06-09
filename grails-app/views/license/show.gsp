@@ -76,6 +76,11 @@
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="license.licenseFile.label" default="License File" /></td>
                             
+                            <td valign="top" class="value">
+                            <g:if test="${ licenseInstance?.licenseFile }">
+                            	<g:link action="downloadLicenseFile" id="${licenseInstance?.id}">${licenseInstance.licenseFile.name?.encodeAsHTML()}</g:link>
+							</g:if>
+                            </td>
                         </tr>
                     
                         <tr class="prop">

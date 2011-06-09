@@ -13,10 +13,7 @@ class License {
 	Integer allowedConcurrent
 	
 	String licenseKey
-	byte[] licenseFile
-
-	//TODO arbitrary documents
-		
+	UploadedFile licenseFile
 
 	static belongsTo = [product:Product, owner:Department]
 	static hasMany = [users:LicenseUsage]
@@ -32,4 +29,5 @@ class License {
 		licenseKey(nullable: true)
 		licenseFile(nullable: true)
 	}
+	static embedded = ['licenseFile']
 }
