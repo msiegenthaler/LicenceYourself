@@ -24,6 +24,7 @@
                         
                             <th><g:message code="licenseAttachment.license.label" default="License" /></th>
                             <g:sortableColumn property="name" title="${message(code: 'licenseAttachment.name.label', default: 'Name')}" />
+                            <th><g:message code="licenseAttachment.file.label" default="File" /></th>
                         
                         </tr>
                     </thead>
@@ -37,6 +38,12 @@
                             	<g:link action="show" id="${licenseAttachmentInstance.id}">
                             		${fieldValue(bean: licenseAttachmentInstance, field: "name")}
                             	</g:link>
+                            </td>
+                            
+                            <td>
+	                            <g:link action="download" id="${licenseAttachmentInstance?.id}">
+	                            	<g:message code="licenseAttachment.file.download" default="download" />
+								</g:link>
                             </td>
                         </tr>
                     </g:each>

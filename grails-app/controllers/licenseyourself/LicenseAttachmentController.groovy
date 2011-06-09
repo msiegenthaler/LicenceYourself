@@ -4,6 +4,8 @@ class LicenseAttachmentController {
 	static transactional = ["save", "update", "delete"]
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
 
+	def uploadedFileService
+	
     def index = {
         redirect(action: "list", params: params)
     }
@@ -97,4 +99,14 @@ class LicenseAttachmentController {
             redirect(action: "list")
         }
     }
+
+	def download = {
+		def attachmentInstance = LicenseAttachment.get(params.id)
+		if (attachmentInstance != null) {
+			uploadedFileService.streamToClient(attachmentInstance.file, response)
+		} else {
+            flash.message = "${g.message(code: 'default.not.found.message', args: [g.message(code: 'licenseAttachment.label', default: 'LicenseAttachment'), params.id])}"
+            redirect(action: "list")
+		}
+	}
 }

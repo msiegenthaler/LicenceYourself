@@ -35,6 +35,10 @@
 
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="licenseAttachment.content.label" default="Content" /></td>
+                            
+							<td valign="top" class="value">
+                           		<g:link action="download" id="${licenseAttachmentInstance?.id}">${licenseAttachmentInstance.file.name?.encodeAsHTML()}</g:link>
+                           	</td>
                         </tr>
                     
                     </tbody>
