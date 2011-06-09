@@ -34,8 +34,10 @@ class BootStrap {
 			def xs_lic_as = new LicenseUsage(license: xs_lic, userid: 'as', checkoutDate: new Date()).save()
 			def xs_lic_cs = new LicenseUsage(license: xs_lic, userid: 'cs', checkoutDate: new Date()).save()
 			
-			def xs_lic_a = new LicenseAttachment(license: xs_lic, name: 'Attachment A', content: [1,2,3,4,5,6]).save()
-			def xs_lic_b = new LicenseAttachment(license: xs_lic, name: 'Attachment B', content: [1,2,3,4,5,6]).save()
+			def a_fa = new UploadedFile(name: 'A.txt', content: 'Hello Attachment A'.bytes, mimeType: 'text/plain')
+			def a_fb = new UploadedFile(name: 'B.txt', content: 'Hello Attachment B'.bytes, mimeType: 'text/plain')
+			def xs_lic_a = new LicenseAttachment(license: xs_lic, name: 'Attachment A', file: a_fa).save()
+			def xs_lic_b = new LicenseAttachment(license: xs_lic, name: 'Attachment B', file: a_fb).save()
 		}
 		
 		Department.withTransaction {

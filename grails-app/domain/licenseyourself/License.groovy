@@ -16,7 +16,6 @@ class License {
 	UploadedFile licenseFile
 
 	static belongsTo = [product:Product, owner:Department]
-	static hasMany = [users:LicenseUsage]
 	static hasMany = [users:LicenseUsage, attachments:LicenseAttachment]
 	
 	def String toString() { 

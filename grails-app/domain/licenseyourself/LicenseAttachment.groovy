@@ -4,9 +4,9 @@ import org.hibernate.envers.Audited;
 
 @Audited
 class LicenseAttachment {
-	
+
 	String name
-	byte[] content
+	UploadedFile file	
 	
 	def getUploadDate() {
 		revisionEntity?.revisionDate
@@ -17,4 +17,5 @@ class LicenseAttachment {
     static constraints = {
 		name(blank: false)
     }
+	static embedded = ['file']
 }
