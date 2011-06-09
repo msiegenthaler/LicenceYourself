@@ -14,6 +14,12 @@ class LicenseAttachmentController {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
         [licenseAttachmentInstanceList: LicenseAttachment.list(params), licenseAttachmentInstanceTotal: LicenseAttachment.count()]
     }
+	
+	private def readFromParams(instance) {
+		instance.properties = params
+		def file = uploadedFileService.getFromClient(request, 'content')
+		if (file != null) instance.file = file
+	}
 
     def create = {
         def licenseAttachmentInstance = new LicenseAttachment()
@@ -22,7 +28,8 @@ class LicenseAttachmentController {
     }
 
     def save = {
-        def licenseAttachmentInstance = new LicenseAttachment(params)
+        def licenseAttachmentInstance = new LicenseAttachment()
+		readFromParams(licenseAttachmentInstance)
         if (licenseAttachmentInstance.save(flush: true)) {
             flash.message = "${g.message(code: 'default.created.message', args: [g.message(code: 'licenseAttachment.label', default: 'LicenseAttachment'), licenseAttachmentInstance.id])}"
             redirect(action: "show", id: licenseAttachmentInstance.id)
@@ -66,7 +73,7 @@ class LicenseAttachmentController {
                     return
                 }
             }
-            licenseAttachmentInstance.properties = params
+			readFromParams(licenseAttachmentInstance)
             if (!licenseAttachmentInstance.hasErrors() && licenseAttachmentInstance.save(flush: true)) {
                 flash.message = "${g.message(code: 'default.updated.message', args: [g.message(code: 'licenseAttachment.label', default: 'LicenseAttachment'), licenseAttachmentInstance.id])}"
                 redirect(action: "show", id: licenseAttachmentInstance.id)
