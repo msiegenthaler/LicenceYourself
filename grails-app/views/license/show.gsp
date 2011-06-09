@@ -100,7 +100,12 @@
                             <td valign="top" style="text-align: left;" class="value">
                                 <ul>
                                 <g:each in="${licenseInstance.attachments}" var="attachment">
-                                    <li><g:link controller="licenseAttachment" action="show" id="${attachment.id}">${attachment?.name?.encodeAsHTML()}</g:link></li>
+                                    <li>
+                                    	<g:link controller="licenseAttachment" action="show" id="${attachment.id}">${attachment?.name?.encodeAsHTML()}</g:link>
+			                            <g:link controller="licenseAttachment" action="download" id="${attachment?.id}">
+			                            	(<g:message code="attachment.file.download" default="download" />)
+										</g:link>
+                                    </li>
                                 </g:each>
                                 </ul>
                             </td>
