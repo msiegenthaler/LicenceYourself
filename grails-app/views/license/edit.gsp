@@ -99,7 +99,8 @@
                                   <label for="licenseFile"><g:message code="license.licenseFile.label" default="License File" /></label>
                                 </td>
                                 <td valign="top" class="value ${hasErrors(bean: licenseInstance, field: 'licenseFile', 'errors')}">
-                                    <input type="file" id="licenseFile" name="licenseFile" />
+                                    <input type="file" id="file" name="file" />
+                                    <g:checkBox name="removeFile"></g:checkBox> <g:message code="license.licenseFile.remove" default="Remove" />
                                 </td>
                             </tr>
                                                 

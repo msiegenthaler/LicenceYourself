@@ -21,9 +21,18 @@ class LicenseController {
 		licenseInstance.properties = params
 		return [licenseInstance: licenseInstance]
 	}
+	
+	private def readFromParams(instance) {
+		instance.properties = params
+		if (!params.removeFile) {
+			def licenseFile = uploadedFileService.getFromClient(request, 'file')
+			if (licenseFile != null) instance.licenseFile = licenseFile
+		} else instance.licenseFile = null
+	}
 
 	def save = {
-		def licenseInstance = new License(params)
+		def licenseInstance = new License()
+		readFromParams(licenseInstance)
 		if (licenseInstance.save(flush: true)) {
 			flash.message = "${g.message(code: 'default.created.message', args: [g.message(code: 'license.label', default: 'License'), licenseInstance.id])}"
 			redirect(action: "show", id: licenseInstance.id)
@@ -69,7 +78,7 @@ class LicenseController {
 					return
 				}
 			}
-			licenseInstance.properties = params
+			readFromParams(licenseInstance)
 			if (!licenseInstance.hasErrors() && licenseInstance.save(flush: true)) {
 				flash.message = "${g.message(code: 'default.updated.message', args: [g.message(code: 'license.label', default: 'License'), licenseInstance.id])}"
 				redirect(action: "show", id: licenseInstance.id)

@@ -10,4 +10,10 @@ class UploadedFileService {
 		resp.outputStream << file.content
 	}
 	
+	def UploadedFile getFromClient(req, key) {
+		def f = req.getFile(key)
+		if (f == null || f.size == 0) return null
+		new UploadedFile(name: f.originalFilename, mimeType: f.contentType, content: f.bytes)
+	}
+	
 }

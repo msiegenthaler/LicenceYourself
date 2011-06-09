@@ -233,6 +233,7 @@ th.desc a {
 }
 .prop .value {
     text-align: left;
+    vertical-align: middle;
     width: 85%;
 }
 
