@@ -75,6 +75,21 @@
 							</td>
                         </tr>
                     
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="department.users.products.label" default="Members" /></td>
+                            <td valign="top" class="value">
+                                <ul>
+                                <g:each in="${users}" var="u">
+                                    <li>
+                                    	<g:link controller="user" action="show" id="${u.userid}">
+                                    		${u?.name?.encodeAsHTML()}
+                                    	</g:link>
+                                    </li>
+                                </g:each>
+                                </ul>
+							</td>
+                        </tr>
+                    
                     </tbody>
                 </table>
             </div>

@@ -3,6 +3,8 @@ package licenseyourself
 class DepartmentController {
 	static transactional = ["save", "update", "delete"]
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
+	
+	def userService
 
     def index = {
         redirect(action: "list", params: params)
@@ -57,7 +59,8 @@ class DepartmentController {
             redirect(action: "list")
         }
         else {
-            [departmentInstance: departmentInstance]
+			def users = userService.usersForDepartment(departmentInstance)
+            [departmentInstance: departmentInstance, users: users]
         }
     }
 

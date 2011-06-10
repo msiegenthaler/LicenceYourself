@@ -1,6 +1,8 @@
 package licenseyourself
 
 class UserService {
+	
+	private def allKnown = ['ms', 'sr', 'dbi', 'fh', 'sb', 'as', 'cs']
 
 	def findByUserId(String id) {
 		//TODO temporary, replace with ldap
@@ -32,11 +34,13 @@ class UserService {
 	def departmentsForUser(User user) {
 		//TODO get from ldap
 		switch (user?.userid) {
-			case 'ms':
 			case 'sr':
+				return [Department.findByName('SE Steuern')]
+				
+			case 'ms':
 			case 'fh':
 			case 'sb':
-				return [Department.findByName('SE Steuern')]
+				return [Department.findByName('SE Steuern Java')]
 				
 			case 'as':
 			case 'cs':
@@ -48,5 +52,11 @@ class UserService {
 			default:
 				return null
 		}
+	}
+	
+	def usersForDepartment(Department department) {
+		def users = allKnown.collect { findByUserId(it) }
+		users = users.findAll { departmentsForUser(it).contains(department) }
+		users.sort { it.name }
 	}
 }
