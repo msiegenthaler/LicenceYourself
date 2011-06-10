@@ -51,11 +51,14 @@
                             <td valign="top" class="name"><g:message code="user.products.label" default="Licensed" /></td>
                             <td valign="top" class="value">
 			            		<ul>
-			            			<g:each in="${ products }" var="c">
+			            			<g:each in="${ products }" var="p">
 			            				<li>
-			            					<g:link controller="product" action="show" id="${c.id}">
-			            						${ c.name.encodeAsHTML() }
+			            					<span class="productColumn">
+			            					<g:link controller="product" action="show" id="${p.key.id}">
+			            						${ p.key.name.encodeAsHTML() }
 			            					</g:link>
+			            					</span>
+			            					(<g:each in="${ p.value }" var="lu"><g:link controller="licenseUsage" action="show" id="${ lu.id }"><g:message code="user.products.showLicense" default="show license"/></g:link></g:each>)
 			            				</li>
 			            			</g:each>
 			            		</ul>

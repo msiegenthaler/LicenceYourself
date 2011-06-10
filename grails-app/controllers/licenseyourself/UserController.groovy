@@ -10,9 +10,13 @@ class UserController {
 	
 	def show = {
 		def user = userService.findByUserId(params.id)
+			
+		def us = LicenseUsage.findAllByUserid(user.userid)
+		def products = us.groupBy { it.license.product }
+
 		[
 			user: user,
-			products: Product.findAllByUser(user),
+			products: products,
 			departments: userService.departmentsForUser(user)
 		]
 	}
