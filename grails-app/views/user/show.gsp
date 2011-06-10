@@ -30,7 +30,14 @@
             		</ul>
             	</li>
             	<li>
-           			Department: <g:each in="${ departments }" var="d" status="i"><g:if test="${ i!=0 }">, </g:if>${ d.name }</g:each>
+           			Departments:
+           			<ul> 
+           			<g:each in="${ departments }" var="d" status="i">
+						<li>
+							<g:link controller="department" action="show" id="${ d.id }">${ d.name }</g:link>
+						</li>
+					</g:each>
+           			</ul>
             	</li>
             	</ul>
 			</div>
