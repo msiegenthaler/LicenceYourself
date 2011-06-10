@@ -19,6 +19,15 @@ class Department {
 	def isTopLevel() {
 		parent == null
 	}
+	def getRecursive() {
+		def res = new HashSet()
+		res << this
+		children.each {
+			res.addAll(it.recursive)
+		}
+		res
+	}
+	
 	
 	static belongsTo = [parent:Department]
 	static hasMany = [licenses:License, children:Department]

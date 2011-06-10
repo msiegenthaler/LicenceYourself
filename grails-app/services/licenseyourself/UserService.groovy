@@ -55,8 +55,14 @@ class UserService {
 	}
 	
 	def usersForDepartment(Department department) {
+		usersForDepartments([department])
+	}
+	def usersForDepartmentRecursive(Department department) {
+		usersForDepartments(department.recursive)
+	}
+	def usersForDepartments(ds) {
 		def users = allKnown.collect { findByUserId(it) }
-		users = users.findAll { departmentsForUser(it).contains(department) }
+		users = users.findAll { departmentsForUser(it).intersect(ds).size() > 0 }
 		users.sort { it.name }
 	}
 }

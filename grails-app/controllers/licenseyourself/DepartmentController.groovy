@@ -59,7 +59,7 @@ class DepartmentController {
             redirect(action: "list")
         }
         else {
-			def users = userService.usersForDepartment(departmentInstance)
+			def users = userService.usersForDepartmentRecursive(departmentInstance)
             [departmentInstance: departmentInstance, users: users]
         }
     }
