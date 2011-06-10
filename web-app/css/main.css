@@ -237,6 +237,11 @@ th.desc a {
     width: 85%;
 }
 
+.prop .value ul {
+	list-style: none;
+	padding-left: 0;
+}
+
 /* ACTION BUTTONS */
 
 .buttons {
