@@ -12,6 +12,8 @@
 		<div class="body">
             <h1><g:message code="default.show.label" args="[entityName]" /></h1>
             <div class="dialog">
+            	TODO design...
+            	
             	<ul>
             	<li>UserId: ${ user.userid }</li>
             	<li>EMail: ${ user.email }</li>
@@ -26,6 +28,9 @@
             				</li>
             			</g:each>
             		</ul>
+            	</li>
+            	<li>
+           			Department: <g:each in="${ departments }" var="d" status="i"><g:if test="${ i!=0 }">, </g:if>${ d.name }</g:each>
             	</li>
             	</ul>
 			</div>

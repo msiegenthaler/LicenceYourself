@@ -3,7 +3,7 @@ package licenseyourself
 class UserService {
 
 	def findByUserId(String id) {
-		//TODO temporary
+		//TODO temporary, replace with ldap
 		switch (id) {
 			case 'ms':
 				return new User(userid: id, name: 'Mario Siegenthaler', email: 'mario.siegenthaler@bedag.ch')
@@ -24,4 +24,29 @@ class UserService {
 		}
 	}
 
+	def currentUser() {
+		//TODO actual implementation based on spring security
+		findByUserId('ms')
+	}
+	
+	def departmentsForUser(User user) {
+		//TODO get from ldap
+		switch (user?.userid) {
+			case 'ms':
+			case 'sr':
+			case 'fh':
+			case 'sb':
+				return [Department.findByName('SE Steuern')]
+				
+			case 'as':
+			case 'cs':
+				return [Department.findByName('SE Grundbuch')]
+				
+			case 'dbi':
+				return [Department.findByName('SE')]
+				
+			default:
+				return null
+		}
+	}
 }

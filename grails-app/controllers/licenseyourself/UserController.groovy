@@ -12,7 +12,8 @@ class UserController {
 		def user = userService.findByUserId(params.id)
 		[
 			user: user,
-			products: Product.findAllByUser(user)
+			products: Product.findAllByUser(user),
+			departments: userService.departmentsForUser(user)
 		]
 	}
 	
