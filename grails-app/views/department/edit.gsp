@@ -48,6 +48,21 @@
                                     <g:textField name="responsibleId" value="${departmentInstance?.responsibleId}" />
                                 </td>
                             </tr>
+                            
+                            <tr class="prop">
+                                <td valign="top" class="name">
+                                  <label for="product"><g:message code="department.parent.label" default="Parent" /></label>
+                                </td>
+                                <td valign="top" class="value ${hasErrors(bean: departmentInstance, field: 'parent', 'errors')}">
+                                	<%
+										def ds = licenseyourself.Department.list()
+										ds.remove(departmentInstance)
+										ds.sort { it?.name }
+									%>
+                                    <g:select name="parent.id" from="${ds}" optionKey="id" optionValue="name"
+                                    	noSelection="${[null: '']}" value="${departmentInstance?.parent?.id}" />
+                                </td>
+                            </tr>                            
                         
                         </tbody>
                     </table>
