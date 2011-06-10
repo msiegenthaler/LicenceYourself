@@ -19,9 +19,28 @@ class DepartmentController {
         departmentInstance.properties = params
         return [departmentInstance: departmentInstance]
     }
+	
+	private def collectParents(d) {
+		def res = []
+		def p = d.parent
+		while (p != null) {
+			if (res.contains(p)) break
+			res << p
+			p = p.parent
+		}
+		res
+	}
+	private def checkNotRecursive(departmentInstance) {
+		def parents = collectParents(departmentInstance)
+		if (parents.contains(departmentInstance)) {
+			departmentInstance.parent = null
+            departmentInstance.errors.rejectValue("parent", "department.recursive.failure", [] as Object[], "Recursive department structure")
+		} 
+	}
 
     def save = {
         def departmentInstance = new Department(params)
+		checkNotRecursive(departmentInstance)
         if (departmentInstance.save(flush: true)) {
             flash.message = "${g.message(code: 'default.created.message', args: [g.message(code: 'department.label', default: 'Department'), departmentInstance.id])}"
             redirect(action: "show", id: departmentInstance.id)
@@ -66,6 +85,7 @@ class DepartmentController {
                 }
             }
             departmentInstance.properties = params
+			checkNotRecursive(departmentInstance)
             if (!departmentInstance.hasErrors() && departmentInstance.save(flush: true)) {
                 flash.message = "${g.message(code: 'default.updated.message', args: [g.message(code: 'department.label', default: 'Department'), departmentInstance.id])}"
                 redirect(action: "show", id: departmentInstance.id)
