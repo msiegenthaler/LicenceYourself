@@ -28,7 +28,11 @@
                     
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="department.responsibleId.label" default="Responsible" /></td>
-                            <td valign="top" class="value">${fieldValue(bean: departmentInstance, field: "responsible")}</td>
+                            <td valign="top" class="value">
+                            	<g:link controller="user" action="show" id="${departmentInstance.responsible?.userid}">
+                            		${fieldValue(bean: departmentInstance, field: "responsible")}
+                            	</g:link>
+                            </td>
                         </tr>
                         
                         <g:if test="${departmentInstance.parent}">
