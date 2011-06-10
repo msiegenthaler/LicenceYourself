@@ -31,6 +31,35 @@
                             <td valign="top" class="value">${fieldValue(bean: departmentInstance, field: "responsible")}</td>
                         </tr>
                         
+                        <g:if test="${departmentInstance.parent}">
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="department.parent.label" default="Parent Department" /></td>
+                            
+                            <td valign="top" class="value">
+                            	<g:link action="show" id="${ departmentInstance?.parent?.id }">
+                            		${ departmentInstance.parent?.name?.encodeAsHTML() }
+                            	</g:link>
+                            </td>
+                        </tr>
+                        </g:if>
+                        
+                        <g:if test="${departmentInstance.children.size()>0}">
+                        <tr class="prop">
+                            <td valign="top" class="name"><g:message code="department.children.label" default="Subdepartments" /></td>
+                            <td valign="top" class="value">
+                                <ul>
+                                <g:each in="${departmentInstance.children}" var="d">
+                                    <li>
+                                    	<g:link action="show" id="${d.id}">
+                                    		${d?.name?.encodeAsHTML()}
+                                    	</g:link>
+                                    </li>
+                                </g:each>
+                                </ul>
+							</td>
+                        </tr>
+                        </g:if>
+                        
                         <tr class="prop">
                             <td valign="top" class="name"><g:message code="department.licenses.products.label" default="Licensed Products" /></td>
                             <td valign="top" class="value">

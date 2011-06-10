@@ -16,8 +16,12 @@ class Department {
 		responsibleId = user?.userid
 	}
 	
+	def isTopLevel() {
+		parent == null
+	}
 	
-	static hasMany = [licenses:License]
+	static belongsTo = [parent:Department]
+	static hasMany = [licenses:License, children:Department]
 	
 	
 	def getProducts() {
@@ -33,5 +37,6 @@ class Department {
 	}
 
     static constraints = {
+		parent(nullable: true)
     }
 }

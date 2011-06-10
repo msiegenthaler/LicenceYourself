@@ -12,8 +12,9 @@ class BootStrap {
 		def xs_lic_ms
 		
 		Department.withTransaction {
-			def ste = new Department(name: 'SE Steuern', responsibleId: 'sr').save()
 			def se = new Department(name: 'SE', responsibleId: 'dbi').save()
+			def ste = new Department(name: 'SE Steuern', responsibleId: 'sr', parent: se).save()
+			def dej = new Department(name: 'SE Steuern Java', responsibleId: 'ms', parent: ste).save()
 
 			def ulc = new Product(name: 'Canoo ULC',
 					description: 'Rich-Application Framework (Java)',
