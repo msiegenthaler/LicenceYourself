@@ -85,11 +85,27 @@ log4j = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate'
+		   
+    debug 'org.springframework.security.ldap'
 
     warn   'org.mortbay.log'
 }
 
 // Added by the Spring Security Core plugin:
-grails.plugins.springsecurity.userLookup.userDomainClassName = 'licenseyourself.User'
-grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'licenseyourself.UserRole'
-grails.plugins.springsecurity.authority.className = 'licenseyourself.Role'
+grails.plugins.springsecurity.ldap.context.server = 'ldap://ad.bedag.ch:389'
+grails.plugins.springsecurity.ldap.context.managerDn = 'CN=Siegenthaler Mario,OU=bedag,OU=adUsers,DC=ad,DC=bedag,DC=ch' //TODO technischer User
+grails.plugins.springsecurity.ldap.context.managerPassword = System.getProperty("adManagerPassword")
+grails.plugins.springsecurity.ldap.search.base = 'OU=bedag,OU=adUsers,DC=ad,DC=bedag,DC=ch'
+grails.plugins.springsecurity.ldap.authorities.groupSearchBase = 'OU=adGroups,DC=ad,DC=bedag,DC=ch'
+//generic ActiveDirectory-Settings
+grails.plugins.springsecurity.ldap.authorities.ignorePartialResultException = true
+grails.plugins.springsecurity.ldap.search.filter="sAMAccountName={0}"
+grails.plugins.springsecurity.ldap.search.searchSubtree = true
+grails.plugins.springsecurity.ldap.useRememberMe = false
+grails.plugins.springsecurity.ldap.authorities.retrieveGroupRoles = true
+grails.plugins.springsecurity.ldap.authorities.groupSearchFilter = 'member={0}'
+//generic settings
+grails.plugins.springsecurity.ldap.auth.hideUserNotFoundExceptions = false
+grails.plugins.springsecurity.ldap.search.attributesToReturn = ['mail', 'name']
+grails.plugins.springsecurity.providerNames = ['ldapAuthProvider', 'anonymousAuthenticationProvider']
+
