@@ -10,7 +10,6 @@ import org.springframework.security.ldap.userdetails.UserDetailsContextMapper;
 
 /**
  * Maps the fields in the Active Directory to the {@link User}. 
- * @author ea38
  */
 public class AdUserDetailsContextMapper implements UserDetailsContextMapper {
 	AdUserDetails mapUserFromContext(DirContextOperations ctx, String username, Collection authorities) {
