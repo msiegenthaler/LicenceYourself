@@ -13,13 +13,17 @@ class UserService {
 	}
 	
 	def departmentsForUser(User user) {
-		userProvider.departmentsForUser(user)
+		userProvider.departmentsForUser(user).collect { Department.findByExternalId(it) }
 	}
 	
 	def usersForDepartment(Department department) {
-		userProvider.usersForDepartment(department, false)
+		userForDepartments([department])
 	}
 	def usersForDepartmentRecursive(Department department) {
-		userProvider.usersForDepartment(department, true)
+		userForDepartments(department.recursive)
+	}
+	private def userForDepartments(deps) {
+		def d = deps.collect { it.externalId }
+		userProvider.usersForDepartments(d)
 	}
 }

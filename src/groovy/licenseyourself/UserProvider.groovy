@@ -8,8 +8,8 @@ interface UserProvider {
 	
 	User userForUserid(String userid)
 	
-	Collection<Department> departmentsForUser(User user)
+	Collection<String> departmentsForUser(User user)
 	
-	Collection<User> usersForDepartment(Department department, boolean includeSubdepartments)
+	Collection<User> usersForDepartments(Collection<String> departments)
 
 }

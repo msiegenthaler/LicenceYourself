@@ -39,40 +39,37 @@ class DevelopmentUserProvider implements UserProvider {
 		}
 	}
 	
-	Collection<Department> departmentsForUser(User user) {
+	Collection<String> departmentsForUser(User user) {
 		switch (user?.userid) {
 			case 'sr':
 				return [
-					Department.findByName('SE Steuern')
+					'ste'
 				]
 
 			case 'ms':
 			case 'fh':
 			case 'sb':
 				return [
-					Department.findByName('SE Steuern Java')
+					'dej'
 				]
 
 			case 'as':
 			case 'cs':
 				return [
-					Department.findByName('SE Grundbuch')
+					'gba'
 				]
 
 			case 'dbi':
-				return [Department.findByName('SE')]
+				return [
+					'se'
+				]
 
 			default:
 				return null
 		}
 	}
-
-	Collection<User> usersForDepartment(Department department, boolean recursive) {
-		def departments = recursive ? department.recursive : [department]
-		usersForDepartments(departments)
-	}
-
-	private def usersForDepartments(ds) {
+	
+	Collection<User> usersForDepartments(Collection<String> ds) {
 		def users = allKnown.collect { userForUserid(it) }
 		users = users.findAll { departmentsForUser(it).intersect(ds).size() > 0 }
 		users.sort { it.name }

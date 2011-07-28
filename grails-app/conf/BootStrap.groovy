@@ -10,10 +10,10 @@ class BootStrap {
 	def init = { servletContext ->
 
 		Department.withTransaction {
-			def se = new Department(name: 'SE', responsibleId: 'dbi').save()
-			def ste = new Department(name: 'SE Steuern', responsibleId: 'sr', parent: se).save()
-			def gba = new Department(name: 'SE Grundbuch', responsibleId: 'cs', parent: se).save()
-			def dej = new Department(name: 'SE Steuern Java', responsibleId: 'ms', parent: ste).save()
+			def se = new Department(name: 'SE', responsibleId: 'dbi', externalId: 'se').save()
+			def ste = new Department(name: 'SE Steuern', responsibleId: 'sr', externalId: 'ste', parent: se).save()
+			def gba = new Department(name: 'SE Grundbuch', responsibleId: 'cs', externalId: 'gba', parent: se).save()
+			def dej = new Department(name: 'SE Steuern Java', responsibleId: 'ms', externalId: 'dej', parent: ste).save()
 
 			def ulc = new Product(name: 'Canoo ULC',
 					description: 'Rich-Application Framework (Java)',
@@ -30,7 +30,7 @@ class BootStrap {
 					homepage: 'http://www.altova.com/xmlspy.html'
 					).save()
 			def xs_lic = new License(owner: se, subscription: false, allowedInstallations: null, allowedConcurrent: 5, product: xs).save()
-			xs_lic_ms = new LicenseUsage(license: xs_lic, userid: 'ms1', checkoutDate: new Date()).save()
+			def xs_lic_ms = new LicenseUsage(license: xs_lic, userid: 'ms1', checkoutDate: new Date()).save()
 			def xs_lic_as = new LicenseUsage(license: xs_lic, userid: 'as', checkoutDate: new Date()).save()
 			def xs_lic_cs = new LicenseUsage(license: xs_lic, userid: 'cs', checkoutDate: new Date()).save()
 			

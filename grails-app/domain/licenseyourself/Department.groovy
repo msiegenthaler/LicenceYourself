@@ -8,6 +8,7 @@ class Department {
 	
 	String name
 	String responsibleId
+	String externalId
 	
 	def getResponsible() {
 		userService.findByUserId(responsibleId)
