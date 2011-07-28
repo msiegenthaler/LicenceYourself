@@ -15,7 +15,7 @@ public class AdUserDetailsContextMapper implements UserDetailsContextMapper {
 	AdUserDetails mapUserFromContext(DirContextOperations ctx, String username, Collection authorities) {
 		String fullname = ctx.originalAttrs.attrs['name'].values[0]
 		String email = ctx.originalAttrs.attrs['mail'].values[0]
-		String userid = ctx.originalAttrs.attrs['samaccountname'].values[0].toString().toLowerCase()
+		String userid = username.toLowerCase()
 
 		new AdUserDetails(userid, '', true, true, true, true, authorities, fullname, email)
 	}
