@@ -13,7 +13,7 @@ class UserService {
 	}
 	
 	def departmentsForUser(User user) {
-		userProvider.departmentsForUser(user).collect { Department.findByExternalId(it) }
+		userProvider.departmentsForUser(user).collect { Department.findByExternalId(it) }.findAll { it != null }
 	}
 	
 	def usersForDepartment(Department department) {

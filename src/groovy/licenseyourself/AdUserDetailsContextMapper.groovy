@@ -29,7 +29,7 @@ public class AdUserDetailsContextMapper implements UserDetailsContextMapper {
  * Implementation of {@link User} based on data from Active Directory.
  * @author ea38
  */
-class AdUserDetails extends org.springframework.security.core.userdetails.User implements User {
+public class AdUserDetails extends org.springframework.security.core.userdetails.User implements User {
 	private final String fullname
 	private final String email
 

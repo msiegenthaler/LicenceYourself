@@ -8,9 +8,10 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 class AdUserProvider implements UserProvider {
 	def ldapUserSearch
+	def ldapAuthoritiesPopulator
 	def userDetailsMapper
 
-	User userForUserid(String userid) {
+	AdUserDetails userForUserid(String userid) {
 		try {
 			def dirctx = ldapUserSearch.searchForUser(userid)
 			userDetailsMapper.mapUserFromContext(dirctx, userid, [])
@@ -19,9 +20,19 @@ class AdUserProvider implements UserProvider {
 		}
 	}
 	
-	Collection<String> departmentsForUser(User arg0) {
-		//TODO
-		[]
+	Collection<String> departmentsForUser(User user) {
+		try {
+			def uid = user.userid
+			def dirctx = ldapUserSearch.searchForUser(uid)
+			def groups = ldapAuthoritiesPopulator.getGrantedAuthorities(dirctx, uid)
+			groups.collect { 
+				def name = it.authority.toLowerCase()
+				if (name.startsWith('role_')) name.substring(5)
+				else name
+			}
+		} catch (UsernameNotFoundException e) {
+			return []
+		}
 	}
 	
 	Collection<User> usersForDepartments(Collection dep) {

@@ -17,6 +17,7 @@ beans = {
 	else {
 		userProvider(AdUserProvider) {
 			ldapUserSearch = ref("ldapUserSearch")
+			ldapAuthoritiesPopulator = ref("ldapAuthoritiesPopulator")
 			userDetailsMapper = ref("ldapUserDetailsMapper")
 		}
 	}
