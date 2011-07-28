@@ -30,7 +30,7 @@ class BootStrap {
 					homepage: 'http://www.altova.com/xmlspy.html'
 					).save()
 			def xs_lic = new License(owner: se, subscription: false, allowedInstallations: null, allowedConcurrent: 5, product: xs).save()
-			def xs_lic_ms = new LicenseUsage(license: xs_lic, userid: 'ms1', checkoutDate: new Date()).save()
+			def xs_lic_ms = new LicenseUsage(license: xs_lic, userid: 'ms', checkoutDate: new Date()).save()
 			def xs_lic_as = new LicenseUsage(license: xs_lic, userid: 'as', checkoutDate: new Date()).save()
 			def xs_lic_cs = new LicenseUsage(license: xs_lic, userid: 'cs', checkoutDate: new Date()).save()
 			
