@@ -8,16 +8,7 @@ import java.util.Collection;
  * Dummy implementation that returns a fixed set of users.
  */
 class DevelopmentUserProvider implements UserProvider {
-	private def allKnown = [
-		'ms',
-		'sr',
-		'dbi',
-		'fh',
-		'sb',
-		'as',
-		'cs'
-	]
-	
+
 	User userForUserid(String id) {
 		switch (id) {
 			case 'ms':
@@ -68,13 +59,6 @@ class DevelopmentUserProvider implements UserProvider {
 				return null
 		}
 	}
-	
-	Collection<User> usersForDepartments(Collection<String> ds) {
-		def users = allKnown.collect { userForUserid(it) }
-		users = users.findAll { departmentsForUser(it).intersect(ds).size() > 0 }
-		users.sort { it.name }
-	}
-
 }
 
 @Immutable

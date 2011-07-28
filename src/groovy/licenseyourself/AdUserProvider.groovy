@@ -11,33 +11,38 @@ class AdUserProvider implements UserProvider {
 	def ldapAuthoritiesPopulator
 	def userDetailsMapper
 
-	AdUserDetails userForUserid(String userid) {
-		try {
-			def dirctx = ldapUserSearch.searchForUser(userid)
-			userDetailsMapper.mapUserFromContext(dirctx, userid, [])
-		} catch (UsernameNotFoundException e) {
-			return new NonExistingUser(userid: userid)
-		}
+	User userForUserid(String userid) {
+		def data = loadUserData(userid)
+		createUserFromData(data, userid)
 	}
-	
+
 	Collection<String> departmentsForUser(User user) {
+		def uid = user.userid
+		def data = loadUserData(uid)
+		groupsFromData(data, uid)
+	}
+
+	private def loadUserData(String userid) {
 		try {
-			def uid = user.userid
-			def dirctx = ldapUserSearch.searchForUser(uid)
-			def groups = ldapAuthoritiesPopulator.getGrantedAuthorities(dirctx, uid)
-			groups.collect { 
-				def name = it.authority.toLowerCase()
-				if (name.startsWith('role_')) name.substring(5)
-				else name
-			}
+			ldapUserSearch.searchForUser(userid)
 		} catch (UsernameNotFoundException e) {
-			return []
+			null
 		}
 	}
-	
-	Collection<User> usersForDepartments(Collection dep) {
-		//TODO
-		[]
+
+	private def createUserFromData(def data, String userid) {
+		if (data!=null) userDetailsMapper.mapUserFromContext(data, userid, [])
+		else new NonExistingUser(userid: userid)
+	}
+
+	private def groupsFromData(def data, String userid) {
+		if (data==null) return []
+		def groups = ldapAuthoritiesPopulator.getGrantedAuthorities(data, userid)
+		groups.collect {
+			def name = it.authority.toLowerCase()
+			if (name.startsWith('role_')) name.substring(5)
+			else name
+		}
 	}
 }
 

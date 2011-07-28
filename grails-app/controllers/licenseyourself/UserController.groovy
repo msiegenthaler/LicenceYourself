@@ -2,7 +2,6 @@ package licenseyourself
 
 class UserController {
 	def userService
-	def licenseUsageService
 
 	def index = {
 		redirect(action: "list", params: params)
@@ -23,7 +22,7 @@ class UserController {
 	
     def list = {
 		 [
-			 users: licenseUsageService.allUsersHavingLicenses().collect { [
+			 users: userService.allUsersHavingLicenses().collect { [
 				userid: it.userid,
 				email: it.email,
 				products: Product.findAllByUser(it).collect { it.name }.sort()  
