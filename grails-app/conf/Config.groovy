@@ -1,3 +1,5 @@
+import grails.util.GrailsUtil;
+
 // locations to search for config files that get merged into the main config
 // config files can either be Java properties files or ConfigSlurper scripts
 
@@ -92,6 +94,7 @@ log4j = {
 }
 
 // Spring Security plugins
+grails.plugins.springsecurity.active = GrailsUtil.isDevelopmentEnv() ? false : true
 grails.plugins.springsecurity.providerNames = ['ldapAuthProvider', 'anonymousAuthenticationProvider']
 grails.plugins.springsecurity.ldap.context.server = 'ldap://ad.bedag.ch:389'
 grails.plugins.springsecurity.ldap.context.managerDn = 'CN=Siegenthaler Mario,OU=bedag,OU=adUsers,DC=ad,DC=bedag,DC=ch' //TODO technischer User
