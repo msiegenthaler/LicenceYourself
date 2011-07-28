@@ -16,10 +16,11 @@ public class AdUserDetailsContextMapper implements UserDetailsContextMapper {
 	def grailsApplication
 
 	AdUserDetails mapUserFromContext(DirContextOperations ctx, String username, Collection authorities) {
-		String fullname = ctx.originalAttrs.attrs['name'].values[0]
-		String email = ctx.originalAttrs.attrs['mail'].values[0]
+		String fullname = ctx.originalAttrs.attrs['name']?.values?.getAt(0)
+		String email = ctx.originalAttrs.attrs['mail']?.values?.getAt(0)
 		String userid = username.toLowerCase()
 		def a = convertAuthorities(authorities)
+		if (fullname==null) fullname = username
 
 		new AdUserDetails(userid, '', true, true, true, true, a, fullname, email)
 	}
@@ -30,11 +31,13 @@ public class AdUserDetailsContextMapper implements UserDetailsContextMapper {
 
 		def authn = authorities.collect { it.authority }
 		def res = new ArrayList(authorities)
+		
+		//add roles
+		res.add(mkAuthority(Roles.USER)) //everybody authenticated has the user role
 		if (authn.contains(admin)) res.add(mkAuthority(Roles.ADMIN))
-		res.add(mkAuthority(Roles.USER))
 		res
 	}
-	
+
 	private def mkAuthority(String name) {
 		new GrantedAuthorityImpl(name)
 	}
