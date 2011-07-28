@@ -9,8 +9,6 @@ class BootStrap {
 
 	def init = { servletContext ->
 
-		def xs_lic_ms
-		
 		Department.withTransaction {
 			def se = new Department(name: 'SE', responsibleId: 'dbi').save()
 			def ste = new Department(name: 'SE Steuern', responsibleId: 'sr', parent: se).save()
@@ -40,11 +38,6 @@ class BootStrap {
 			def a_fb = new UploadedFile(name: 'B.txt', content: 'Hello Attachment B'.bytes, mimeType: 'text/plain')
 			def xs_lic_a = new LicenseAttachment(license: xs_lic, name: 'Attachment A', file: a_fa).save()
 			def xs_lic_b = new LicenseAttachment(license: xs_lic, name: 'Attachment B', file: a_fb).save()
-		}
-		
-		Department.withTransaction {
-			xs_lic_ms.userid = 'ms'
-			xs_lic_ms.save()
 		}
 	}
 	def destroy = {
