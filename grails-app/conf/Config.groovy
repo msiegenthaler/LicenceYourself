@@ -112,3 +112,7 @@ grails.plugins.springsecurity.ldap.authorities.groupSearchFilter = 'member={0}'
 grails.plugins.springsecurity.ldap.auth.hideUserNotFoundExceptions = false
 grails.plugins.springsecurity.ldap.search.attributesToReturn = ['mail', 'name']
 
+
+
+//group mapping
+licenseyourself.groups.admin = 'zg5-001-0001-g'

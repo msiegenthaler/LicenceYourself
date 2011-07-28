@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.springframework.ldap.core.DirContextAdapter;
 import org.springframework.ldap.core.DirContextOperations;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.GrantedAuthorityImpl;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.ldap.userdetails.UserDetailsContextMapper;
 
@@ -12,12 +13,34 @@ import org.springframework.security.ldap.userdetails.UserDetailsContextMapper;
  * Maps the fields in the Active Directory to the {@link User}. 
  */
 public class AdUserDetailsContextMapper implements UserDetailsContextMapper {
+	def grailsApplication
+
 	AdUserDetails mapUserFromContext(DirContextOperations ctx, String username, Collection authorities) {
 		String fullname = ctx.originalAttrs.attrs['name'].values[0]
 		String email = ctx.originalAttrs.attrs['mail'].values[0]
 		String userid = username.toLowerCase()
+		def a = convertAuthorities(authorities)
 
-		new AdUserDetails(userid, '', true, true, true, true, authorities, fullname, email)
+		new AdUserDetails(userid, '', true, true, true, true, a, fullname, email)
+	}
+
+	private def convertAuthorities(def authorities) {
+		def gc = grailsApplication.config.licenseyourself.groups
+		def admin = asRole(gc.admin)
+
+		def authn = authorities.collect { it.authority }
+		def res = new ArrayList(authorities)
+		if (authn.contains(admin)) res.add(mkAuthority(Roles.ADMIN))
+		res.add(mkAuthority(Roles.USER))
+		res
+	}
+	
+	private def mkAuthority(String name) {
+		new GrantedAuthorityImpl(name)
+	}
+	private def asRole(String raw) {
+		if (raw == null) return null;
+		"ROLE_" + raw.toUpperCase()
 	}
 
 	void mapUserToContext(UserDetails user, DirContextAdapter ctx) {
@@ -53,7 +76,7 @@ public class AdUserDetails extends org.springframework.security.core.userdetails
 	String getEmail() {
 		email
 	}
-	
+
 	String toString() {
 		fullname
 	}

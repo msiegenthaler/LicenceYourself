@@ -8,7 +8,9 @@ import licenseyourself.UserProvider;
 
 beans = {
 
-	ldapUserDetailsMapper(AdUserDetailsContextMapper) {}
+	ldapUserDetailsMapper(AdUserDetailsContextMapper) {
+		grailsApplication = ref("grailsApplication")
+	}
 
 
 	if (Environment.current.developmentMode) {
