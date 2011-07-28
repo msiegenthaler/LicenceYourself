@@ -73,4 +73,7 @@ class SimpleUserImpl implements User {
 	final String userid
 	final String name
 	final String email
+	String toString() {
+		name
+	}
 }
