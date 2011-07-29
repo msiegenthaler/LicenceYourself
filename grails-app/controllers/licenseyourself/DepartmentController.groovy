@@ -2,7 +2,7 @@ package licenseyourself
 
 import grails.plugins.springsecurity.Secured;
 
-@Secured(["hasRole('ROLE_USER')"])
+@Secured(['ROLE_USER'])
 class DepartmentController {
 	static transactional = ["save", "update", "delete"]
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
@@ -19,7 +19,7 @@ class DepartmentController {
         [departmentInstanceList: Department.list(params), departmentInstanceTotal: Department.count()]
     }
 
-	@Secured(["hasRole('ROLE_ADMIN')"])
+	@Secured(['ROLE_ADMIN'])
     def create = {
         def departmentInstance = new Department()
         departmentInstance.properties = params
@@ -44,7 +44,7 @@ class DepartmentController {
 		} 
 	}
 
-	@Secured(["hasRole('ROLE_ADMIN')"])
+	@Secured(['ROLE_ADMIN'])
     def save = {
         def departmentInstance = new Department(params)
 		checkNotRecursive(departmentInstance)
@@ -69,7 +69,7 @@ class DepartmentController {
         }
     }
 
-	@Secured(["hasRole('ROLE_ADMIN')"])
+	@Secured(['ROLE_ADMIN'])
     def edit = {
         def departmentInstance = Department.get(params.id)
         if (!departmentInstance) {
@@ -81,7 +81,7 @@ class DepartmentController {
         }
     }
 
-	@Secured(["hasRole('ROLE_ADMIN')"])
+	@Secured(['ROLE_ADMIN'])
     def update = {
         def departmentInstance = Department.get(params.id)
         if (departmentInstance) {
@@ -110,7 +110,7 @@ class DepartmentController {
         }
     }
 
-	@Secured(["hasRole('ROLE_ADMIN')"])
+	@Secured(['ROLE_ADMIN'])
     def delete = {
         def departmentInstance = Department.get(params.id)
         if (departmentInstance) {
