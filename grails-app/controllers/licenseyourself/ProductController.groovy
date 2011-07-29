@@ -25,12 +25,14 @@ class ProductController {
 		[productInstanceList: prods, allowed: allowed, installed: installed, productInstanceTotal: Product.count()]
 	}
 
+	@Secured(["hasRole('ROLE_MANAGER')"])
 	def create = {
 		def productInstance = new Product()
 		productInstance.properties = params
 		return [productInstance: productInstance]
 	}
 
+	@Secured(["hasRole('ROLE_MANAGER')"])
 	def save = {
 		def productInstance = new Product(params)
 		if (productInstance.save(flush: true)) {
@@ -53,6 +55,7 @@ class ProductController {
 		}
 	}
 
+	@Secured(["hasRole('ROLE_MANAGER')"])
 	def edit = {
 		def productInstance = Product.get(params.id)
 		if (!productInstance) {
@@ -64,6 +67,7 @@ class ProductController {
 		}
 	}
 
+	@Secured(["hasRole('ROLE_MANAGER')"])
 	def update = {
 		def productInstance = Product.get(params.id)
 		if (productInstance) {
@@ -93,6 +97,7 @@ class ProductController {
 		}
 	}
 
+	@Secured(["hasRole('ROLE_MANAGER')"])
 	def delete = {
 		def productInstance = Product.get(params.id)
 		if (productInstance) {
