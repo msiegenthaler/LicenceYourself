@@ -87,6 +87,15 @@
             content you may choose. Below is a list of controllers that are currently deployed in this application,
             click on each to execute its default action:</p>
 
+			<p>
+	            <sec:ifLoggedIn>
+	            	Welcome <sec:loggedInUserInfo field="username"/> (<sec:loggedInUserInfo field="userid"/>)<br/>
+	            </sec:ifLoggedIn>
+	            <sec:ifNotLoggedIn>
+	            	Please log in to use the application.
+	            </sec:ifNotLoggedIn>
+			</p>
+
             <div id="controllerList" class="dialog">
                 <h2>Available Controllers:</h2>
                 <ul>
