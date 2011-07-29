@@ -24,12 +24,14 @@ class LicenseAttachmentController {
 		if (file != null) instance.file = file
 	}
 
+	@Secured(['ROLE_MANAGER'])
     def create = {
         def licenseAttachmentInstance = new LicenseAttachment()
         licenseAttachmentInstance.properties = params
         return [licenseAttachmentInstance: licenseAttachmentInstance]
     }
 
+	@Secured(['ROLE_MANAGER'])
     def save = {
         def licenseAttachmentInstance = new LicenseAttachment()
 		readFromParams(licenseAttachmentInstance)
@@ -53,6 +55,7 @@ class LicenseAttachmentController {
         }
     }
 
+	@Secured(['ROLE_MANAGER'])
     def edit = {
         def licenseAttachmentInstance = LicenseAttachment.get(params.id)
         if (!licenseAttachmentInstance) {
@@ -64,6 +67,7 @@ class LicenseAttachmentController {
         }
     }
 
+	@Secured(['ROLE_MANAGER'])
     def update = {
         def licenseAttachmentInstance = LicenseAttachment.get(params.id)
         if (licenseAttachmentInstance) {
@@ -91,6 +95,7 @@ class LicenseAttachmentController {
         }
     }
 
+	@Secured(['ROLE_MANAGER'])
     def delete = {
         def licenseAttachmentInstance = LicenseAttachment.get(params.id)
         if (licenseAttachmentInstance) {
