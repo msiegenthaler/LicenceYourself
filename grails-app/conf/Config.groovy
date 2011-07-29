@@ -88,7 +88,7 @@ log4j = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 		   
-    debug 'org.springframework.security.ldap'
+    //debug 'org.springframework.security.ldap'
 
     warn   'org.mortbay.log'
 }
