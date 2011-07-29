@@ -19,6 +19,7 @@ class LicenseController {
 		[licenseInstanceList: License.list(params), licenseInstanceTotal: License.count()]
 	}
 
+	@Secured(['ROLE_MANAGER'])
 	def create = {
 		def licenseInstance = new License()
 		licenseInstance.properties = params
@@ -33,6 +34,7 @@ class LicenseController {
 		} else instance.licenseFile = null
 	}
 
+	@Secured(['ROLE_MANAGER'])
 	def save = {
 		def licenseInstance = new License()
 		readFromParams(licenseInstance)
@@ -56,6 +58,7 @@ class LicenseController {
 		}
 	}
 
+	@Secured(['ROLE_MANAGER'])
 	def edit = {
 		def licenseInstance = License.get(params.id)
 		if (!licenseInstance) {
@@ -67,6 +70,7 @@ class LicenseController {
 		}
 	}
 
+	@Secured(['ROLE_MANAGER'])
 	def update = {
 		def licenseInstance = License.get(params.id)
 		if (licenseInstance) {
@@ -96,6 +100,7 @@ class LicenseController {
 		}
 	}
 
+	@Secured(['ROLE_MANAGER'])
 	def delete = {
 		def licenseInstance = License.get(params.id)
 		if (licenseInstance) {
