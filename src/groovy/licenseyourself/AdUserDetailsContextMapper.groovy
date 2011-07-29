@@ -28,6 +28,7 @@ public class AdUserDetailsContextMapper implements UserDetailsContextMapper {
 	private def convertAuthorities(def authorities) {
 		def gc = grailsApplication.config.licenseyourself.groups
 		def admin = asRole(gc.admin)
+		def manager = asRole(gc.manager)
 
 		def authn = authorities.collect { it.authority }
 		def res = new ArrayList(authorities)
@@ -35,6 +36,7 @@ public class AdUserDetailsContextMapper implements UserDetailsContextMapper {
 		//add roles
 		res.add(mkAuthority(Roles.USER)) //everybody authenticated has the user role
 		if (authn.contains(admin)) res.add(mkAuthority(Roles.ADMIN))
+		if (authn.contains(manager)) res.add(mkAuthority(Roles.MANAGER))
 		res
 	}
 

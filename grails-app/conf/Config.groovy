@@ -116,3 +116,4 @@ grails.plugins.springsecurity.ldap.search.attributesToReturn = ['mail', 'name']
 
 //group mapping
 licenseyourself.groups.admin = 'zg5-001-0001-g'
+licenseyourself.groups.manager = 'zg5-001-0001-g'
