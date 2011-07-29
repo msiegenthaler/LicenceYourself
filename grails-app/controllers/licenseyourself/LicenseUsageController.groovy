@@ -1,7 +1,10 @@
 package licenseyourself
 
+import grails.plugins.springsecurity.Secured;
+
 import javax.sql.rowset.spi.TransactionalWriter;
 
+@Secured(["hasRole('ROLE_USER')"])
 class LicenseUsageController {
 	static transactional = ["save", "update", "delete"]
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]

@@ -1,5 +1,8 @@
 package licenseyourself
 
+import grails.plugins.springsecurity.Secured;
+
+@Secured(["hasRole('ROLE_USER')"])
 class UserController {
 	def userService
 

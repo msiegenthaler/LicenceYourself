@@ -1,5 +1,8 @@
 package licenseyourself
 
+import grails.plugins.springsecurity.Secured
+
+@Secured(["hasRole('ROLE_USER')"])
 class LicenseController {
 	static transactional = ["save", "update", "delete"]
 	static allowedMethods = [save: "POST", update: "POST", delete: "POST"]

@@ -1,5 +1,8 @@
 package licenseyourself
 
+import grails.plugins.springsecurity.Secured;
+
+@Secured(["hasRole('ROLE_USER')"])
 class LicenseAttachmentController {
 	static transactional = ["save", "update", "delete"]
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
