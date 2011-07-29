@@ -1,6 +1,7 @@
 import grails.util.Environment;
 import licenseyourself.AdUserDetailsContextMapper;
 import licenseyourself.AdUserProvider;
+import licenseyourself.AdUsernameToDnMapper;
 import licenseyourself.DevelopmentUserProvider;
 import licenseyourself.UserProvider;
 
@@ -17,6 +18,8 @@ beans = {
 		userProvider(DevelopmentUserProvider) {}
 	}
 	else {
+		ldapUsernameMapper(AdUsernameToDnMapper) {}
+		
 		userProvider(AdUserProvider) {
 			ldapUserSearch = ref("ldapUserSearch")
 			ldapAuthoritiesPopulator = ref("ldapAuthoritiesPopulator")
