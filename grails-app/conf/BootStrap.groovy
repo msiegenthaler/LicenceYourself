@@ -13,7 +13,7 @@ class BootStrap {
 	def securityContextPersistenceFilter
 
 	def init = { servletContext ->
-		securityContextPersistenceFilter.forceEagerSessionCreation = true
+		securityContextPersistenceFilter?.forceEagerSessionCreation = true
 
 		if (Environment.current.developmentMode) {
 			// create some test data
