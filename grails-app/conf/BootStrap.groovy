@@ -10,6 +10,7 @@ import licenseyourself.Product;
 import licenseyourself.UploadedFile;
 
 class BootStrap {
+	def securityContextPersistenceFilter
 
 	def init = { servletContext ->
 		securityContextPersistenceFilter?.forceEagerSessionCreation = true
