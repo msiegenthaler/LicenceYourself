@@ -12,6 +12,7 @@ import licenseyourself.UploadedFile;
 class BootStrap {
 
 	def init = { servletContext ->
+		securityContextPersistenceFilter?.forceEagerSessionCreation = true
 
 		if (Environment.current.developmentMode) {
 			// create some test data
