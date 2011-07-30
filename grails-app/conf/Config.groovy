@@ -106,16 +106,13 @@ if (!Environment.current.developmentMode) {
 	grails.plugins.springsecurity.ldap.search.base = 'OU=bedag,OU=adUsers,DC=ad,DC=bedag,DC=ch'
 	grails.plugins.springsecurity.ldap.rememberMe.usernameMapper.userDnBase = 'OU=bedag,OU=adUsers,DC=ad,DC=bedag,DC=ch'
 	grails.plugins.springsecurity.ldap.authorities.groupSearchBase = 'OU=adGroups,DC=ad,DC=bedag,DC=ch'
-	grails.plugins.springsecurity.ldap.rememberMe.detailsManager.groupSearchBase = 'OU=adGroups,DC=ad,DC=bedag,DC=ch'
 	//generic ActiveDirectory-Settings
 	grails.plugins.springsecurity.ldap.authorities.ignorePartialResultException = true
 	grails.plugins.springsecurity.ldap.search.filter = "sAMAccountName={0}"
 	grails.plugins.springsecurity.ldap.search.searchSubtree = true
 	grails.plugins.springsecurity.ldap.authorities.retrieveGroupRoles = true
 	grails.plugins.springsecurity.ldap.authorities.groupSearchFilter = 'member={0}'
-	grails.plugins.springsecurity.ldap.rememberMe.detailsManager.groupMemberAttributeName = 'member'
 	grails.plugins.springsecurity.ldap.search.attributesToReturn = ['sAMAccountName', 'mail', 'name']
-	grails.plugins.springsecurity.ldap.rememberMe.detailsManager.attributesToRetrieve = ['sAMAccountName', 'mail', 'name']
 	//generic settings
 	grails.plugins.springsecurity.ldap.auth.hideUserNotFoundExceptions = false
 	grails.plugins.springsecurity.ldap.useRememberMe = true

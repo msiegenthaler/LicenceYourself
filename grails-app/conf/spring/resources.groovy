@@ -31,6 +31,8 @@ beans = {
 			ldapAuthoritiesPopulator = ref("ldapAuthoritiesPopulator")
 			userDetailsMapper = ref("ldapUserDetailsMapper")
 		}
+		
+		userDetailsService = ref("userProvider") 
 	}
 
 }
