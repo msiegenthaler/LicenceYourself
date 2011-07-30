@@ -1,6 +1,9 @@
+import org.springframework.security.authentication.TestingAuthenticationProvider;
+
 import grails.util.Environment;
 import licenseyourself.AdUserDetailsContextMapper;
 import licenseyourself.AdUserProvider;
+import licenseyourself.DevelopmentAuthenticationProvider;
 import licenseyourself.DevelopmentUserProvider;
 import licenseyourself.UserProvider;
 
@@ -15,6 +18,9 @@ beans = {
 
 	if (Environment.current.developmentMode) {
 		userProvider(DevelopmentUserProvider) {}
+		developmentAuthenticationProvider(DevelopmentAuthenticationProvider) {
+			userProvider = ref("userProvider")
+		}
 	}
 	else {
 		userProvider(AdUserProvider) {
