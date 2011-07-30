@@ -10,7 +10,7 @@
     <body>
         <div class="nav">
             <span class="menuButton"><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></span>
-            <sec:ifAllGranted roles="ROLE_MANAGER,ROLE_ADMIN">
+            <sec:ifAllGranted roles="ROLE_MANAGER">
             <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
             </sec:ifAllGranted>
         </div>
