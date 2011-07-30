@@ -53,7 +53,7 @@
                 </table>
             </div>
             
-            <sec:ifAllGranted roles="ROLE_MANAGER,ROLE_ADMIN">
+            <sec:ifAllGranted roles="ROLE_MANAGER">
             <div class="buttons">
                 <g:form>
                     <g:hiddenField name="id" value="${productInstance?.id}" />
