@@ -69,7 +69,7 @@ public class AdUserDetails extends org.springframework.security.core.userdetails
 	boolean credentialsNonExpired, boolean accountNonLocked,
 	Collection<GrantedAuthority> authorities, String userid, String fullname,
 	String email) {
-		super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities)
+		super(userid, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities)
 		this.userid = userid
 		this.fullname = fullname
 		this.email = email

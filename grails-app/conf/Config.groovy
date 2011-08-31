@@ -104,7 +104,6 @@ if (!Environment.current.developmentMode) {
 	grails.plugins.springsecurity.ldap.context.managerDn = 'CN=Siegenthaler Mario,OU=bedag,OU=adUsers,DC=ad,DC=bedag,DC=ch' //TODO technischer User
 	grails.plugins.springsecurity.ldap.context.managerPassword = System.getProperty("adManagerPassword") 					//TODO jndi
 	grails.plugins.springsecurity.ldap.search.base = 'OU=bedag,OU=adUsers,DC=ad,DC=bedag,DC=ch'
-	grails.plugins.springsecurity.ldap.rememberMe.usernameMapper.userDnBase = 'OU=bedag,OU=adUsers,DC=ad,DC=bedag,DC=ch'
 	grails.plugins.springsecurity.ldap.authorities.groupSearchBase = 'OU=adGroups,DC=ad,DC=bedag,DC=ch'
 	//generic ActiveDirectory-Settings
 	grails.plugins.springsecurity.ldap.authorities.ignorePartialResultException = true

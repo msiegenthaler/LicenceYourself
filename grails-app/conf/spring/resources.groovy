@@ -1,4 +1,5 @@
 import org.springframework.security.authentication.TestingAuthenticationProvider;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
 
 import grails.util.Environment;
 import licenseyourself.AdUserDetailsContextMapper;
@@ -26,13 +27,22 @@ beans = {
 	else {
 		ldapUsernameMapper(AdUsernameToDnMapper) {}
 		
+//		rememberMeServices(PersistentTokenBasedRememberMeServices) {
+//			userDetailsService = ref(userProvider)
+//		}
+		
 		userProvider(AdUserProvider) {
 			ldapUserSearch = ref("ldapUserSearch")
 			ldapAuthoritiesPopulator = ref("ldapAuthoritiesPopulator")
 			userDetailsMapper = ref("ldapUserDetailsMapper")
 		}
 		
-		userDetailsService = ref("userProvider") 
+		userDetailsService(AdUserProvider) {
+			ldapUserSearch = ref("ldapUserSearch")
+			ldapAuthoritiesPopulator = ref("ldapAuthoritiesPopulator")
+			userDetailsMapper = ref("ldapUserDetailsMapper")
+		} 
+//				userDetailsService = ref("userProvider") 
 	}
 
 }

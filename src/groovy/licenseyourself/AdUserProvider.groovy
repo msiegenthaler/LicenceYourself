@@ -4,24 +4,28 @@ package licenseyourself
 import java.beans.PropertyChangeEvent;
 import java.util.Collection;
 
+import org.codehaus.groovy.grails.plugins.springsecurity.GrailsUserDetailsService;
 import org.springframework.dao.DataAccessException;
 import org.springframework.ldap.core.DirContextOperations;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-class AdUserProvider implements UserProvider, UserDetailsService {
+class AdUserProvider implements UserProvider, GrailsUserDetailsService {
 	def ldapUserSearch
 	def ldapAuthoritiesPopulator
 	def userDetailsMapper
 
-	UserDetails loadUserByUsername(String username)	throws UsernameNotFoundException, DataAccessException {
-		def data = loadUserData(userid)
-		def user = createUserFromData(data, username, false)
-		if (user == null) throw new UsernameNotFoundException("user ${username} was not found")
-		user
+	UserDetails loadUserByUsername(String userid)	throws UsernameNotFoundException, DataAccessException {
+		loadUserByUsername(userid, true)
 	}
 	
+	UserDetails loadUserByUsername(String userid, boolean roles) throws UsernameNotFoundException ,DataAccessException {
+		def data = loadUserData(userid)
+		if (data == null) throw new UsernameNotFoundException("user ${username} was not found")
+		def groups = ldapAuthoritiesPopulator.getGrantedAuthorities(data, userid)
+		def user = userDetailsMapper.mapUserFromContext(data, userid, groups)
+		user
+	}
 
 	User userForUserid(String userid) {
 		def data = loadUserData(userid)
