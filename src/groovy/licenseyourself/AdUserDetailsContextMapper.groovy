@@ -18,11 +18,14 @@ public class AdUserDetailsContextMapper implements UserDetailsContextMapper {
 	AdUserDetails mapUserFromContext(DirContextOperations ctx, String username, Collection authorities) {
 		String fullname = ctx.originalAttrs.attrs['name']?.values?.getAt(0)
 		String email = ctx.originalAttrs.attrs['mail']?.values?.getAt(0)
-		String userid = username.toLowerCase()
+		String userid = ctx.originalAttrs.attrs['samaccountname']?.values?.getAt(0)?.toLowerCase()
+		def dn = ctx.dn.toString()
 		def a = convertAuthorities(authorities)
+		
+		if (userid==null) throw new IllegalArgumentException("No sAMAccountName for "+dn)
 		if (fullname==null) fullname = username
 
-		new AdUserDetails(userid, '', true, true, true, true, a, fullname, email)
+		new AdUserDetails(dn, '', true, true, true, true, a, userid, fullname, email)
 	}
 
 	private def convertAuthorities(def authorities) {
@@ -60,18 +63,20 @@ public class AdUserDetailsContextMapper implements UserDetailsContextMapper {
 public class AdUserDetails extends org.springframework.security.core.userdetails.User implements User {
 	private final String fullname
 	private final String email
+	private final String userid
 
 	AdUserDetails(String username, String password, boolean enabled, boolean accountNonExpired,
 	boolean credentialsNonExpired, boolean accountNonLocked,
-	Collection<GrantedAuthority> authorities, String fullname,
+	Collection<GrantedAuthority> authorities, String userid, String fullname,
 	String email) {
-		super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities)
+		super(userid, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities)
+		this.userid = userid
 		this.fullname = fullname
 		this.email = email
 	}
 
 	String getUserid() {
-		username
+		userid
 	}
 
 	String getName() {

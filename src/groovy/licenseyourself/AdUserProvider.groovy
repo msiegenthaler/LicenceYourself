@@ -1,19 +1,37 @@
+
 package licenseyourself
 
 import java.beans.PropertyChangeEvent;
 import java.util.Collection;
 
+import org.codehaus.groovy.grails.plugins.springsecurity.GrailsUserDetailsService;
+import org.springframework.dao.DataAccessException;
 import org.springframework.ldap.core.DirContextOperations;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-class AdUserProvider implements UserProvider {
+class AdUserProvider implements UserProvider, GrailsUserDetailsService {
 	def ldapUserSearch
 	def ldapAuthoritiesPopulator
 	def userDetailsMapper
 
+	UserDetails loadUserByUsername(String userid)	throws UsernameNotFoundException, DataAccessException {
+		loadUserByUsername(userid, true)
+	}
+	
+	UserDetails loadUserByUsername(String userid, boolean roles) throws UsernameNotFoundException ,DataAccessException {
+		def data = loadUserData(userid)
+		if (data == null) throw new UsernameNotFoundException("user ${username} was not found")
+		def groups = ldapAuthoritiesPopulator.getGrantedAuthorities(data, userid)
+		def user = userDetailsMapper.mapUserFromContext(data, userid, groups)
+		user
+	}
+
 	User userForUserid(String userid) {
 		def data = loadUserData(userid)
-		createUserFromData(data, userid)
+		def user = createUserFromData(data, userid)
+		if (user == null) user = new NonExistingUser(userid: userid)
+		user
 	}
 
 	Collection<String> departmentsForUser(User user) {
@@ -32,7 +50,7 @@ class AdUserProvider implements UserProvider {
 
 	private def createUserFromData(def data, String userid) {
 		if (data!=null) userDetailsMapper.mapUserFromContext(data, userid, [])
-		else new NonExistingUser(userid: userid)
+		else null
 	}
 
 	private def groupsFromData(def data, String userid) {

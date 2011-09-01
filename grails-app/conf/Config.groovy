@@ -89,7 +89,9 @@ log4j = {
            'org.hibernate',
            'net.sf.ehcache.hibernate'
 		   
-    //debug 'org.springframework.security.ldap'
+    info 'org.springframework.security.rememberme'
+    info 'org.springframework.security.web.authentication.rememberme'
+    info 'org.springframework.security.ldap'
 
     warn   'org.mortbay.log'
 }
@@ -97,23 +99,26 @@ log4j = {
 // Spring Security plugins
 grails.plugins.springsecurity.active = true
 if (!Environment.current.developmentMode) {
-	grails.plugins.springsecurity.active = GrailsUtil.isDevelopmentEnv() ? false : true
-	grails.plugins.springsecurity.providerNames = ['ldapAuthProvider', 'anonymousAuthenticationProvider']
+	grails.plugins.springsecurity.providerNames = ['ldapAuthProvider', 'anonymousAuthenticationProvider', 'rememberMeAuthenticationProvider']
 	grails.plugins.springsecurity.ldap.context.server = 'ldap://ad.bedag.ch:389'
 	grails.plugins.springsecurity.ldap.context.managerDn = 'CN=Siegenthaler Mario,OU=bedag,OU=adUsers,DC=ad,DC=bedag,DC=ch' //TODO technischer User
-	grails.plugins.springsecurity.ldap.context.managerPassword = System.getProperty("adManagerPassword") //TODO jndi
+	grails.plugins.springsecurity.ldap.context.managerPassword = System.getProperty("adManagerPassword") 					//TODO jndi
 	grails.plugins.springsecurity.ldap.search.base = 'OU=bedag,OU=adUsers,DC=ad,DC=bedag,DC=ch'
 	grails.plugins.springsecurity.ldap.authorities.groupSearchBase = 'OU=adGroups,DC=ad,DC=bedag,DC=ch'
 	//generic ActiveDirectory-Settings
 	grails.plugins.springsecurity.ldap.authorities.ignorePartialResultException = true
-	grails.plugins.springsecurity.ldap.search.filter="sAMAccountName={0}"
+	grails.plugins.springsecurity.ldap.search.filter = "sAMAccountName={0}"
 	grails.plugins.springsecurity.ldap.search.searchSubtree = true
-	grails.plugins.springsecurity.ldap.useRememberMe = false
 	grails.plugins.springsecurity.ldap.authorities.retrieveGroupRoles = true
 	grails.plugins.springsecurity.ldap.authorities.groupSearchFilter = 'member={0}'
+	grails.plugins.springsecurity.ldap.search.attributesToReturn = ['sAMAccountName', 'mail', 'name']
 	//generic settings
 	grails.plugins.springsecurity.ldap.auth.hideUserNotFoundExceptions = false
-	grails.plugins.springsecurity.ldap.search.attributesToReturn = ['mail', 'name']
+	grails.plugins.springsecurity.ldap.useRememberMe = true
+	grails.plugins.springsecurity.rememberMe.persistent = true
+	grails.plugins.springsecurity.rememberMe.cookieName = 'licenseyourself_persistent_auth'
+	grails.plugins.springsecurity.rememberMe.key = '1TCi=GI2ox?EFO{'
+	grails.plugins.springsecurity.rememberMe.persistentToken.domainClassName = 'licenseyourself.login.PersistentLogin'
 	//group mapping
 	licenseyourself.groups.admin = 'zg5-001-0001-g'
 	licenseyourself.groups.manager = 'zg5-001-0001-g'
@@ -121,3 +126,5 @@ if (!Environment.current.developmentMode) {
 	grails.plugin.excludes = 'springSecurityLdap'
 	grails.plugins.springsecurity.providerNames = ['developmentAuthenticationProvider', 'anonymousAuthenticationProvider']
 }
+
+
